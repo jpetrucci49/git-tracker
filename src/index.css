@@ -1,27 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@reference "tailwindcss";
 
-@layer base {
-  html {
-    @apply bg-gray-950 text-gray-100;
-    color-scheme: dark;
-  }
-  html:not(.dark) {
-    @apply bg-white text-gray-900;
-    color-scheme: light;
-  }
-  body {
-    @apply bg-white text-gray-900;
-  }
-}
-
-@theme {
-  --color-primary: oklch(0.65 0.2 260);
-}
-
-.dark {
+html {
+  @apply bg-gray-950 text-gray-100;
   color-scheme: dark;
+}
+
+html:not(.dark) {
+  @apply bg-white text-gray-900;
+  color-scheme: light;
 }
 
 *, *::before, *::after {

@@ -28,3 +28,10 @@ export interface GQLResponse {
     };
   };
 }
+
+export interface LanguageData {
+  name: string;
+  value: number;
+  color: string;
+  [key: string]: string | number;
+}

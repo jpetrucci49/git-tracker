@@ -1,15 +1,21 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { SearchInput } from "./components/SearchInput";
 import { UserProfile } from "./components/UserProfile";
 import { ContributionHeatmap } from "./components/ContributionHeatmap";
+import { LanguageChart } from "./components/LanguageChart";
 import { LoadingSkeleton } from "./components/LoadingSkeleton";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { useGitHubUser } from "./hooks/useGitHubUser";
 import { useContributions } from "./hooks/useContributions";
+import { useUserLanguages } from "./hooks/useUserLanguages";
 
 function App() {
-  const [username, setUsername] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const urlUser = searchParams.get("user") || "";
+
+  const [username, setUsername] = useState(urlUser);
   const [darkMode, setDarkMode] = useState(true);
 
   const {
@@ -23,23 +29,42 @@ function App() {
     streak,
     loading: contribLoading,
   } = useContributions(username, !!user);
+  const { languages, loading: langLoading } = useUserLanguages(
+    username,
+    !!user
+  );
 
+  // Sync URL when username changes
+  useEffect(() => {
+    if (username) {
+      setSearchParams({ user: username });
+    } else {
+      setSearchParams({});
+    }
+  }, [username, setSearchParams]);
+
+  // Load from URL on mount
+  useEffect(() => {
+    if (urlUser && !username) {
+      setUsername(urlUser);
+    }
+  }, [urlUser, username]);
+
+  // Dark mode persistence
   useEffect(() => {
     const saved = localStorage.getItem("git-tracker-theme");
     setDarkMode(saved !== "light");
   }, []);
 
+  // Dark mode toggle
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("git-tracker-theme", "dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("git-tracker-theme", "light");
-    }
+    document.documentElement.classList.toggle("dark", darkMode);
+    localStorage.setItem("git-tracker-theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  const isLoading = userLoading || contribLoading;
+  const isLoading = userLoading || contribLoading || langLoading;
+
+  const shareUrl = username ? `${window.location.origin}?user=${username}` : "";
 
   return (
     <div className="min-h-screen">
@@ -68,6 +93,22 @@ function App() {
           <>
             <UserProfile user={user} total={total} streak={streak} />
             <ContributionHeatmap days={days} />
+            <LanguageChart data={languages} />
+
+            {/* Share Button */}
+            {username && (
+              <div className="mt-12 text-center">
+                <button
+                  onClick={() => navigator.clipboard.writeText(shareUrl)}
+                  className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium shadow-lg hover:scale-105 transition"
+                >
+                  Copy Share Link
+                </button>
+                <p className="text-gray-400 mt-3 text-sm">
+                  Share this user's stats instantly
+                </p>
+              </div>
+            )}
           </>
         )}
       </main>

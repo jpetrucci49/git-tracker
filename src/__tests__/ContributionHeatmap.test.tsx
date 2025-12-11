@@ -1,4 +1,3 @@
-// src/__tests__/ContributionHeatmap.test.tsx
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { ContributionHeatmap } from "../components/ContributionHeatmap";
@@ -20,7 +19,6 @@ describe("ContributionHeatmap", () => {
 
     render(<ContributionHeatmap days={days} />);
 
-    // waitFor because Framer Motion delays rendering
     const cell = await screen.findByTitle(/5 commits/);
     expect(cell).toBeInTheDocument();
     expect(cell).toHaveClass("bg-green-500");

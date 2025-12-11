@@ -1,4 +1,3 @@
-// src/__tests__/useContributions.test.ts
 import { renderHook, waitFor } from "@testing-library/react";
 import { useContributions } from "../hooks/useContributions";
 import { request } from "graphql-request";

@@ -6,6 +6,7 @@ import { UserProfile } from "./components/UserProfile";
 import { ContributionHeatmap } from "./components/ContributionHeatmap";
 import { LanguageChart } from "./components/LanguageChart";
 import { LoadingSkeleton } from "./components/LoadingSkeleton";
+import { LoadingSpinner } from "./components/LoadingSpinner";
 import { ErrorMessage } from "./components/ErrorMessage";
 import { useGitHubUser } from "./hooks/useGitHubUser";
 import { useContributions } from "./hooks/useContributions";
@@ -93,7 +94,12 @@ function App() {
           <>
             <UserProfile user={user} total={total} streak={streak} />
             <ContributionHeatmap days={days} />
-            <LanguageChart data={languages} />
+
+            {langLoading ? (
+              <LoadingSpinner />
+            ) : languages.length > 0 ? (
+              <LanguageChart data={languages} />
+            ) : null}
 
             {/* Share Button */}
             {username && (

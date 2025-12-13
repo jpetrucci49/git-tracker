@@ -11,14 +11,14 @@ export const UserProfile = ({ user, total, streak }: Props) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
-    className="mt-16 bg-gray-900 dark:bg-white rounded-3xl shadow-2xl p-10 flex items-center gap-10 border border-gray-800 dark:border-gray-200"
+    className="flex flex-col sm:flex-row items-center gap-8 sm:gap-12"
   >
     <img
       src={user.avatar_url}
       alt={user.login}
-      className="w-36 h-36 rounded-full ring-4 ring-blue-500/30 shadow-xl"
+      className="w-32 h-32 sm:w-36 sm:h-36 rounded-full ring-4 ring-blue-500/30 shadow-xl"
     />
-    <div>
+    <div className="text-center sm:text-left">
       <h2 className="text-5xl font-bold text-white dark:text-gray-900">
         {user.name || user.login}
       </h2>

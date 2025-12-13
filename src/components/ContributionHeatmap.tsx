@@ -12,33 +12,35 @@ export const ContributionHeatmap = ({ days }: Props) => (
       Contribution Heatmap — Last 12 Months
     </h3>
 
-    <div className="flex gap-2 justify-center overflow-x-auto pb-6">
-      {Array.from({ length: 53 }, (_, w) => (
-        <div key={w} className="flex flex-col gap-2">
-          {Array.from({ length: 7 }, (_, d) => {
-            const i = w * 7 + d;
-            const day = days[i];
-            return day ? (
-              <motion.div
-                key={day.date}
-                initial={{ scale: 0, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                transition={{
-                  delay: i * 0.004,
-                  type: "spring",
-                  stiffness: 300,
-                }}
-                className={`w-5 h-5 rounded ${day.color} hover:scale-300 hover:z-10 transition-all shadow-lg`}
-                title={`${format(parseISO(day.date), "PPP")} → ${
-                  day.contributionCount
-                } commits`}
-              />
-            ) : (
-              <div key={i} className="w-5 h-5" />
-            );
-          })}
-        </div>
-      ))}
+    <div className="overflow-x-auto -mx-4 px-4 pb-4">
+      <div className="flex gap-2 min-w-min">
+        {Array.from({ length: 53 }, (_, w) => (
+          <div key={w} className="flex flex-col gap-2">
+            {Array.from({ length: 7 }, (_, d) => {
+              const i = w * 7 + d;
+              const day = days[i];
+              return day ? (
+                <motion.div
+                  key={day.date}
+                  initial={{ scale: 0, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{
+                    delay: i * 0.004,
+                    type: "spring",
+                    stiffness: 300,
+                  }}
+                  className={`w-4 h-4 sm:w-5 sm:h-5 rounded ${day.color} hover:scale-300 hover:z-10 transition-all shadow-md`}
+                  title={`${format(parseISO(day.date), "PPP")} → ${
+                    day.contributionCount
+                  } commits`}
+                />
+              ) : (
+                <div key={i} className="w-4 h-4 sm:w-5 sm:h-5" />
+              );
+            })}
+          </div>
+        ))}
+      </div>
     </div>
 
     <div className="flex justify-center items-center gap-4 mt-10 text-sm">

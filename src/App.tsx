@@ -19,6 +19,9 @@ function App() {
 
   const [username, setUsername] = useState(urlUser);
   const [darkMode, setDarkMode] = useState(true);
+  const [streakType, setStreakType] = useState<"current" | "longest">(
+    "current"
+  );
 
   const {
     user,
@@ -28,7 +31,8 @@ function App() {
   const {
     days,
     total,
-    streak,
+    currentStreak,
+    longestStreak,
     loading: contribLoading,
   } = useContributions(username, !!user);
   const { languages, loading: langLoading } = useUserLanguages(
@@ -93,7 +97,14 @@ function App() {
         {userError && <ErrorMessage message={userError} />}
         {user && days.length > 0 && (
           <>
-            <UserProfile user={user} total={total} streak={streak} />
+            <UserProfile
+              user={user}
+              total={total}
+              currentStreak={currentStreak}
+              longestStreak={longestStreak}
+              streakType={streakType}
+              setStreakType={setStreakType}
+            />
             {user && (
               <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-8">
                 Data last updated: {new Date().toLocaleString()}

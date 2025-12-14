@@ -24,14 +24,29 @@ const QUERY = gql`
 export const useContributions = (username: string, enabled: boolean) => {
   const [days, setDays] = useState<ContributionDay[]>([]);
   const [total, setTotal] = useState(0);
-  const [streak, setStreak] = useState(0);
+  const [currentStreak, setCurrentStreak] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [longestStreak, setLongestStreak] = useState(0);
+
+  const calculateLongestStreak = (days: ContributionDay[]) => {
+    let longest = 0;
+    let current = 0;
+    for (let i = days.length - 1; i >= 0; i--) {
+      if (days[i].contributionCount > 0) {
+        current++;
+        longest = Math.max(longest, current);
+      } else {
+        current = 0;
+      }
+    }
+    return longest;
+  };
 
   useEffect(() => {
     if (!enabled || !username) {
       setDays([]);
       setTotal(0);
-      setStreak(0);
+      setCurrentStreak(0);
       return;
     }
 
@@ -83,7 +98,8 @@ export const useContributions = (username: string, enabled: boolean) => {
             if (processed[i].contributionCount > 0) current++;
             else if (current > 0) break;
           }
-          setStreak(current);
+          setCurrentStreak(current);
+          setLongestStreak(calculateLongestStreak(processed));
         }
       } catch (err) {
         console.error(err);
@@ -97,5 +113,5 @@ export const useContributions = (username: string, enabled: boolean) => {
     };
   }, [username, enabled]);
 
-  return { days, total, streak, loading };
+  return { days, total, currentStreak, loading, longestStreak };
 };

@@ -31,7 +31,10 @@ describe("UserProfile", () => {
           followers: 999,
         }}
         total={1337}
-        streak={42}
+        currentStreak={42}
+        longestStreak={98}
+        streakType="current"
+        setStreakType={() => {}}
       />
     );
 

@@ -4,10 +4,20 @@ import type { GitHubUser } from "../types/github";
 interface Props {
   user: GitHubUser;
   total: number;
-  streak: number;
+  currentStreak: number;
+  longestStreak: number;
+  streakType: "current" | "longest";
+  setStreakType: (type: "current" | "longest") => void;
 }
 
-export const UserProfile = ({ user, total, streak }: Props) => (
+export const UserProfile = ({
+  user,
+  total,
+  currentStreak,
+  longestStreak,
+  streakType,
+  setStreakType,
+}: Props) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
@@ -35,12 +45,33 @@ export const UserProfile = ({ user, total, streak }: Props) => (
             contributions this year
           </span>
         </div>
-        <div className="flex items-center gap-3">
+        {/* <div className="flex items-center gap-3">
           <span className="text-5xl font-bold text-orange-400">{streak}</span>
           <div>
             <div className="text-2xl font-semibold">day streak 🔥</div>
             <div className="text-sm text-gray-400 dark:text-gray-600">
               Current
+            </div>
+          </div>
+        </div> */}
+        <div className="flex items-center gap-6">
+          <select
+            value={streakType}
+            onChange={(e) =>
+              setStreakType(e.target.value as "current" | "longest")
+            }
+            className="px-4 py-2 rounded-lg bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 font-medium"
+          >
+            <option value="current">Current Streak</option>
+            <option value="longest">Longest Streak</option>
+          </select>
+
+          <div className="flex items-center gap-3">
+            <span className="text-5xl font-bold text-orange-400">
+              {streakType === "current" ? currentStreak : longestStreak}
+            </span>
+            <div>
+              {streakType === "current" ? "day streak 🔥" : "longest streak 🔥"}
             </div>
           </div>
         </div>

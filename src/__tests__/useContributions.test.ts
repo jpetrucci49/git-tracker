@@ -30,6 +30,6 @@ describe("useContributions", () => {
     await waitFor(() => expect(result.current.loading).toBe(false));
 
     expect(result.current.total).toBe(1000);
-    expect(result.current.streak).toBeGreaterThan(0);
+    expect(result.current.currentStreak).toBeGreaterThan(0);
   });
 });

@@ -35,11 +35,14 @@ export const UserProfile = ({ user, total, streak }: Props) => (
             contributions this year
           </span>
         </div>
-        <div>
-          <span className="text-4xl font-bold text-yellow-400">{streak}</span>
-          <span className="ml-3 text-gray-400 dark:text-gray-600">
-            day streak
-          </span>
+        <div className="flex items-center gap-3">
+          <span className="text-5xl font-bold text-orange-400">{streak}</span>
+          <div>
+            <div className="text-2xl font-semibold">day streak 🔥</div>
+            <div className="text-sm text-gray-400 dark:text-gray-600">
+              Current
+            </div>
+          </div>
         </div>
       </div>
     </div>

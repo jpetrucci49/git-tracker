@@ -93,6 +93,11 @@ function App() {
         {user && days.length > 0 && (
           <>
             <UserProfile user={user} total={total} streak={streak} />
+            {user && (
+              <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-8">
+                Data last updated: {new Date().toLocaleString()}
+              </p>
+            )}
             <ContributionHeatmap days={days} />
 
             {langLoading ? (

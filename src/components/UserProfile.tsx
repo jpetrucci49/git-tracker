@@ -11,7 +11,7 @@ export const UserProfile = ({ user, total, streak }: Props) => (
   <motion.div
     initial={{ opacity: 0, y: 40 }}
     animate={{ opacity: 1, y: 0 }}
-    className="flex flex-col sm:flex-row items-center gap-8 sm:gap-12"
+    className="flex flex-col sm:flex-row items-center gap-8 mt-5 sm:gap-12"
   >
     <img
       src={user.avatar_url}

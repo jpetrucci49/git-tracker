@@ -19,10 +19,10 @@ export const UserProfile = ({ user, total, streak }: Props) => (
       className="w-32 h-32 sm:w-36 sm:h-36 rounded-full ring-4 ring-blue-500/30 shadow-xl"
     />
     <div className="text-center sm:text-left">
-      <h2 className="text-5xl font-bold text-white dark:text-gray-900">
+      <h2 className="text-5xl font-bold text-white dark:text-gray-400">
         {user.name || user.login}
       </h2>
-      <p className="text-2xl text-gray-400 dark:text-gray-600 mt-1">
+      <p className="text-2xl text-gray-300 dark:text-gray-600 mt-1">
         @{user.login}
       </p>
 

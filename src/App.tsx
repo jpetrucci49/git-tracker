@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { SearchInput } from "./components/SearchInput";
+import { TopRepos } from "./components/TopRepos";
 import { UserProfile } from "./components/UserProfile";
 import { ContributionHeatmap } from "./components/ContributionHeatmap";
 import { LanguageChart } from "./components/LanguageChart";
@@ -105,6 +106,8 @@ function App() {
             ) : languages.length > 0 ? (
               <LanguageChart data={languages} />
             ) : null}
+
+            {user && <TopRepos username={user.login} />}
 
             {/* Share Button */}
             {username && (

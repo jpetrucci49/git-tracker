@@ -66,7 +66,7 @@ export const LanguageChart = ({ data }: Props) => {
             cursor={{ fill: "rgba(255, 255, 255, 0.1)" }}
             formatter={(value: number, name: string) => {
               const percentage = ((value / total) * 100).toFixed(1);
-              return [`${value.toLocaleString()} bytes (${percentage}%)`, name];
+              return `${name}: ${value.toLocaleString()} bytes (${percentage}%)`;
             }}
           />
           <Legend />

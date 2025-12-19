@@ -42,7 +42,6 @@
     "globals": "^16.5.0",
     "happy-dom": "^20.0.11",
     "jsdom": "^27.3.0",
-    "lightningcss-darwin-arm64": "^1.29.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
     "typescript": "~5.9.3",

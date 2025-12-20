@@ -67,11 +67,11 @@ export const LanguageChart = ({ data }: Props) => {
             formatter={(value: number, name: string) => {
               const percentage = ((value / total) * 100).toFixed(1);
               return [
-                <span key="formatted-value" className="font-medium">
+                <span key="value" className="font-medium">
                   {value.toLocaleString()} bytes ({percentage}%)
                 </span>,
                 name,
-              ] as const;
+              ];
             }}
           />
           <Legend />

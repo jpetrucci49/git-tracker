@@ -64,10 +64,13 @@ export const LanguageChart = ({ data }: Props) => {
               padding: "4px 0",
             }}
             cursor={{ fill: "rgba(255, 255, 255, 0.1)" }}
-            formatter={(value: number, name: string) => {
+            formatter={(value?: number, name?: string) => {
+              if (value === undefined || name === undefined) {
+                return null;
+              }
               const percentage = ((value / total) * 100).toFixed(1);
               return [
-                <span key="value" className="font-medium">
+                <span key="formatted-value" className="font-medium">
                   {value.toLocaleString()} bytes ({percentage}%)
                 </span>,
                 name,
